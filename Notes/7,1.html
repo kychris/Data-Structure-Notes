@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<LINK REL=StyleSheet HREF="../style.css" TYPE="text/css" >
+</head>
+<body align="center">
+	
+	<a href="../index.html"><h1>CS61: DATA STRUCTURE Notes</h1></a>
+	<div id = "content" >
+		<h1>Week 7 Binary Search Trees</h1>
+		
+
+		<img src="pics/7,3.jpg" alt="Class Note" width="100%">
+
+		
+
+<h2>Insert</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">insert</span> <span style="color: #d0d0d0">(Node*&amp;</span> <span style="color: #d0d0d0">tree,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">val)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//base case</span>
+		<span style="color: #d0d0d0">tree</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">new</span> <span style="color: #d0d0d0">Node(val);</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(val</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">tree-&gt;data)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #999999; font-style: italic">//if duplicate</span>
+			<span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(val</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">tree-&gt;data)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #999999; font-style: italic">//toward the right</span>
+			<span style="color: #d0d0d0">insert(tree-&gt;right,</span> <span style="color: #d0d0d0">val);</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #999999; font-style: italic">//toward the left</span>
+			<span style="color: #d0d0d0">insert(tree-&gt;left,</span> <span style="color: #d0d0d0">val);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+
+
+</section> 	
+
+
+
+
+<h2>Find</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">find</span><span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">tree,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">val)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//not found</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree-&gt;data</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">val)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//found</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(val</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">tree-&gt;data)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//find on right</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">find(tree-&gt;right,</span> <span style="color: #d0d0d0">val);</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//find on left</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">find(tree-&gt;left,</span> <span style="color: #d0d0d0">val);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+
+</section>
+
+
+
+<h2>Print</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintSmallToBig</span><span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">tree)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">PrintSmallToBig(tree-&gt;left);</span>
+		<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">tree-&gt;data</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot; &quot;</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">PrintSmallToBig(tree-&gt;right);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>	
+</section>
+
+
+
+
+
+
+
+
+
+<h2>Remove</h2>
+<p>Remove the element wanted</p>
+<p>Replace with (biggest on right tree / smallest on right tree)</p>
+<section>
+	<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">Remove</span><span style="color: #d0d0d0">(Node*&amp;</span> <span style="color: #d0d0d0">tree,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">val)</span> <span style="color: #d0d0d0">{</span>
+
+	<span style="color: #999999; font-style: italic">//don&#39;t find</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(val</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">tree-&gt;data)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//find</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree-&gt;left</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//only right side</span>
+			<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">temp</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">tree-&gt;right;</span>
+			<span style="color: #6ab825; font-weight: bold">delete</span> <span style="color: #d0d0d0">tree;</span>
+			<span style="color: #d0d0d0">tree</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">temp;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree-&gt;right</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//only left side</span>
+			<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">temp</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">tree-&gt;left;</span>
+			<span style="color: #6ab825; font-weight: bold">delete</span> <span style="color: #d0d0d0">tree;</span>
+			<span style="color: #d0d0d0">tree</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">temp;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//has both sides</span>
+			<span style="color: #999999; font-style: italic">//choose the biggest left</span>
+			<span style="color: #d0d0d0">tree-&gt;data</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">RemoveLargest(tree-&gt;left);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(val</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">tree-&gt;data)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//search on right</span>
+		<span style="color: #d0d0d0">Remove(tree-&gt;right,</span> <span style="color: #d0d0d0">val);</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">// val &lt; tree-&gt;data</span>
+		<span style="color: #999999; font-style: italic">//search on left</span>
+		<span style="color: #d0d0d0">Remove(tree-&gt;left,</span> <span style="color: #d0d0d0">val);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section>
+
+<section>
+	<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #447fcf">RemoveLargest</span><span style="color: #d0d0d0">(Node*&amp;</span> <span style="color: #d0d0d0">tree)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(tree-&gt;right</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">ret</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">tree-&gt;data;</span>
+		
+		<span style="color: #999999; font-style: italic">//free the memory</span>
+		<span style="color: #6ab825; font-weight: bold">delete</span> <span style="color: #d0d0d0">tree;</span> 
+
+		<span style="color: #999999; font-style: italic">//take care of case where left has sth</span>
+		<span style="color: #d0d0d0">tree</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">tree-&gt;left;</span>  
+
+		<span style="color: #999999; font-style: italic">//return result</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">ret;</span>
+	<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">RemoveLargest(tree-&gt;right);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+</section>
+
+
+
+
+	</div>
+
+
+</body>
+</html>

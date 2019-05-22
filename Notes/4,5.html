@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<LINK REL=StyleSheet HREF="../style.css" TYPE="text/css" >
+</head>
+<body align="center">
+	
+	<a href="../index.html"><h1>CS61: DATA STRUCTURE Notes</h1></a>
+	<div id = "content" >
+		<h1>Week 4 Friday: Heap Sort</h1>
+
+		<img src="" alt="Class Note">
+
+		<p>Insertion Sort -> n^2</p>
+		<p>Selection Sort -> n^2</p>
+		<p>Merge Sort -> nLogn (requires copy)</p>
+		<p>Quick Sort -> nLogn (worst case n^2)</p>
+		
+		<h2>Bad Heap Sort (requires copy)</h2>
+		<p>1. push all items onto a heap</p>
+		<p>2. pop one by one onto an array</p>
+		
+		
+		<h2>Good Heap Sort</h2>
+		<p>1. heapify the array</p>
+		<p>2. swap root with last element</p>
+		<p>3.</h2> sift down last element at root with size-1</p>
+	
+	<hr>
+	
+<h2>Heap Sort</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">HeapSort</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">arr[],</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">len)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #d0d0d0">Heapify(arr,</span> <span style="color: #d0d0d0">len);</span>
+	<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">len</span> <span style="color: #d0d0d0">-</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i--)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">swap(arr,</span> <span style="color: #d0d0d0">i,</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">);</span> <span style="color: #999999; font-style: italic">//move biggest to last</span>
+		<span style="color: #d0d0d0">SiftDown(arr,</span> <span style="color: #d0d0d0">i-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">,</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">);</span> <span style="color: #999999; font-style: italic">//sifts it down, excluding last one</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section> 	
+
+
+<h2>Heapify</h2>
+
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">Heapify</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">arr[],</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">len)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #999999; font-style: italic">/*</span>
+<span style="color: #999999; font-style: italic">	- start with the lowest parent</span>
+<span style="color: #999999; font-style: italic">	- work upwards</span>
+<span style="color: #999999; font-style: italic">	- sift the parent down</span>
+<span style="color: #999999; font-style: italic">	*/</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">ind</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">get_parent(len</span> <span style="color: #d0d0d0">-</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">);</span>
+	<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">ind;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&gt;=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i--)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">SiftDown(arr,</span> <span style="color: #d0d0d0">len,</span> <span style="color: #d0d0d0">i);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+</section>
+
+
+<h2>Sifts</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">SiftUp</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">arr[],</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">ind)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(ind</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//reaching top</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">p</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">(ind</span> <span style="color: #d0d0d0">-</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">)/</span><span style="color: #3677a9">2</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//parent index</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(arr[p]</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">arr[ind])</span> <span style="color: #d0d0d0">{</span> 
+		<span style="color: #d0d0d0">swap(arr,</span> <span style="color: #d0d0d0">p,</span> <span style="color: #d0d0d0">ind);</span>
+		<span style="color: #d0d0d0">SiftUp(arr,</span> <span style="color: #d0d0d0">p);</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+
+<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">SiftDown</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">arr[],</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">len,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">ind)</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">LCI</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">2</span><span style="color: #d0d0d0">*ind+</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(LCI</span> <span style="color: #d0d0d0">&gt;=</span> <span style="color: #d0d0d0">len)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">RCI</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">2</span><span style="color: #d0d0d0">*ind+</span><span style="color: #3677a9">2</span><span style="color: #d0d0d0">;</span>
+
+	<span style="color: #999999; font-style: italic">//one children</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(RCI</span> <span style="color: #d0d0d0">&gt;=</span> <span style="color: #d0d0d0">len)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(arr[LCI]</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">arr[ind]){</span>
+			<span style="color: #d0d0d0">swap(arr,</span> <span style="color: #d0d0d0">LCI,</span> <span style="color: #d0d0d0">ind);</span>
+			<span style="color: #d0d0d0">SiftDown(arr,</span> <span style="color: #d0d0d0">len,</span> <span style="color: #d0d0d0">LCI);</span>
+			<span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #999999; font-style: italic">//determine which to swap</span>
+	<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(arr[ind]</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">arr[LCI]</span> <span style="color: #d0d0d0">||</span> <span style="color: #d0d0d0">arr[ind]</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">arr[RCI]){</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(arr[LCI]</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">arr[RCI]){</span>
+			<span style="color: #d0d0d0">swap(arr,</span> <span style="color: #d0d0d0">LCI,</span> <span style="color: #d0d0d0">ind);</span>
+			<span style="color: #d0d0d0">SiftDown(arr,</span> <span style="color: #d0d0d0">len,</span> <span style="color: #d0d0d0">LCI);</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">swap(arr,</span> <span style="color: #d0d0d0">RCI,</span> <span style="color: #d0d0d0">ind);</span>
+			<span style="color: #d0d0d0">SiftDown(arr,</span> <span style="color: #d0d0d0">len,</span> <span style="color: #d0d0d0">RCI);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section>
+
+
+	</div>
+
+
+</body>
+</html>

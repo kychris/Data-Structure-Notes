@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<LINK REL=StyleSheet HREF="../style.css" TYPE="text/css" >
+</head>
+<body align="center">
+	
+	<a href="../index.html"><h1>CS61: DATA STRUCTURE Notes</h1></a>
+	<div id = "content" >
+		<h1>Week 7: Graphs</h1>
+		
+		
+
+		<img src="pics/7,5.jpg" alt="Class Note" width="100%">
+
+		<p>content, conten t</p>
+
+<h2>Link class</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Link</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">distance;</span>
+	<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">n1;</span>
+	<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">n2;</span>
+
+	<span style="color: #d0d0d0">Link(</span> <span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">a,</span> <span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">b,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">:</span>  <span style="color: #d0d0d0">n1(a),</span> <span style="color: #d0d0d0">n2(b),</span> <span style="color: #d0d0d0">distance(d)</span> <span style="color: #d0d0d0">{};</span>
+<span style="color: #d0d0d0">};</span>
+</pre></div>
+</section> 	
+
+
+<h2>Node class</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Node</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">string</span> <span style="color: #d0d0d0">city;</span>
+	<span style="color: #d0d0d0">vector&lt;Link*&gt;</span> <span style="color: #d0d0d0">links;</span>
+	<span style="color: #d0d0d0">Node</span> <span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">str)</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">city(str)</span> <span style="color: #d0d0d0">{}</span>
+<span style="color: #d0d0d0">};</span>
+</pre></div>
+
+</section>
+
+<h2>Graph class with vectors</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Graph</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">private:</span>
+	<span style="color: #d0d0d0">vector&lt;Node&gt;</span> <span style="color: #d0d0d0">cities;</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">Graph()</span> <span style="color: #d0d0d0">{}</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">AddNode(string</span> <span style="color: #d0d0d0">cityname);</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddLink</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">city1,</span> <span style="color: #d0d0d0">string</span> <span style="color: #d0d0d0">city</span> <span style="color: #3677a9">2</span><span style="color: #d0d0d0">,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d);</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintConnectedCities</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">cityname);</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+</section>
+
+<h2>Graph functions</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddNode</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">cities.push_back(Node(cityname));</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddLink</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">city1,</span> <span style="color: #d0d0d0">string</span> <span style="color: #d0d0d0">city2,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//intiate index for cities in vector</span>
+		<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i1</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i2</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+
+		<span style="color: #999999; font-style: italic">//find the pos of the cities</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">cities.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(cities[i].city</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">city1)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">i1</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">i;</span>
+			<span style="color: #d0d0d0">}</span>
+			<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(cities[i].city</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">city2)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">i2</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">i;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+
+		<span style="color: #999999; font-style: italic">//if one is not found</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(i1</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #3677a9">0</span> <span style="color: #d0d0d0">||</span> <span style="color: #d0d0d0">i2</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> 
+
+		<span style="color: #999999; font-style: italic">//create a new link with two cities, add link to both cities</span>
+		<span style="color: #d0d0d0">Link*</span> <span style="color: #d0d0d0">LPTR</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">new</span> <span style="color: #d0d0d0">Link(&amp;(cities[i1]),</span> <span style="color: #d0d0d0">&amp;(cities[i2]),</span> <span style="color: #d0d0d0">d);</span>
+		<span style="color: #d0d0d0">cities[i1].links.push_back(LPTR);</span>
+		<span style="color: #d0d0d0">cities[i2].links.push_back(LPTR);</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintConnectedCities</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>	
+		<span style="color: #999999; font-style: italic">/* example of wrong function</span>
+<span style="color: #999999; font-style: italic">		Node* c = nullptr;</span>
+<span style="color: #999999; font-style: italic">		for (auto elem : cities) {</span>
+<span style="color: #999999; font-style: italic">			if (elem.city == cityname) {</span>
+<span style="color: #999999; font-style: italic">				//does this save the address of the temp variable??</span>
+<span style="color: #999999; font-style: italic">				//or does it do the right thing?</span>
+
+<span style="color: #999999; font-style: italic">				//well, this is wrong, would be right if (auto &amp;elem : cities)</span>
+<span style="color: #999999; font-style: italic">				c = &amp;elem;</span>
+<span style="color: #999999; font-style: italic">			}</span>
+<span style="color: #999999; font-style: italic">		}</span>
+<span style="color: #999999; font-style: italic">		*/</span>
+
+		<span style="color: #999999; font-style: italic">//find the city with index</span>
+		<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">ind</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">cities.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(cities[i].city</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">ind</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">i;</span>
+				<span style="color: #6ab825; font-weight: bold">break</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+
+		<span style="color: #999999; font-style: italic">//not found</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(ind</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+
+		<span style="color: #999999; font-style: italic">//if found, iterate through all the links</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">cities[ind].links.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">Link*</span> <span style="color: #d0d0d0">lptr</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">cities[ind].links[i];</span>
+
+			<span style="color: #999999; font-style: italic">//find the link and print the other one</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(lptr-&gt;n1-&gt;city</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">lptr-&gt;n2-&gt;city</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+			<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">lptr-&gt;n1-&gt;city</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+			
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">};</span>
+</pre></div>
+
+</section>
+
+<h2>Graph class with hashing</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #d0d0d0">unordered_map&lt;string,</span> <span style="color: #d0d0d0">Node&gt;</span> <span style="color: #d0d0d0">cities;</span>
+</pre></div>
+
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddNode</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">cities.insert(pair&lt;string,</span> <span style="color: #d0d0d0">Node&gt;(cityname,</span> <span style="color: #d0d0d0">Node(cityname)));</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddLink</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">city1,</span> <span style="color: #d0d0d0">string</span> <span style="color: #d0d0d0">city2,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//1. create new link on heap</span>
+		<span style="color: #999999; font-style: italic">//2. node a, node b, distance set</span>
+		<span style="color: #999999; font-style: italic">//3. add the link to both nodes&#39; link vector</span>
+
+		
+		<span style="color: #999999; font-style: italic">//use iterator to find</span>
+		<span style="color: #d0d0d0">unordered_map&lt;string,</span> <span style="color: #d0d0d0">Node&gt;::iterator</span> <span style="color: #d0d0d0">it1;</span>
+		<span style="color: #d0d0d0">it1</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">cities.find(city1);</span>  <span style="color: #999999; font-style: italic">//O(1), way faster than iterature through everything</span>
+	
+		<span style="color: #999999; font-style: italic">//use iterator to find</span>
+		<span style="color: #d0d0d0">unordered_map&lt;string,</span> <span style="color: #d0d0d0">Node&gt;::iterator</span> <span style="color: #d0d0d0">it2;</span>
+		<span style="color: #d0d0d0">it2</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">cities.find(city2);</span>  <span style="color: #999999; font-style: italic">//O(1), way faster than iterature through everything</span>
+
+		<span style="color: #999999; font-style: italic">//if not found either</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(it1</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cities.end()</span> <span style="color: #d0d0d0">||</span> <span style="color: #d0d0d0">it2</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cities.end())</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> 
+
+		<span style="color: #999999; font-style: italic">//create a new link and add link to both node</span>
+		<span style="color: #d0d0d0">Link*</span> <span style="color: #d0d0d0">LPTR</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">new</span> <span style="color: #d0d0d0">Link(&amp;(it1-&gt;second),</span> <span style="color: #d0d0d0">&amp;(it2-&gt;second),</span> <span style="color: #d0d0d0">d);</span>
+		<span style="color: #d0d0d0">it1-&gt;second.links.push_back(LPTR);</span>
+		<span style="color: #d0d0d0">it2-&gt;second.links.push_back(LPTR);</span>
+	<span style="color: #d0d0d0">}</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintConnectedCities</span><span style="color: #d0d0d0">(string</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>	
+		
+		<span style="color: #999999; font-style: italic">//use iterator to find</span>
+		<span style="color: #d0d0d0">unordered_map&lt;string,</span> <span style="color: #d0d0d0">Node&gt;::iterator</span> <span style="color: #d0d0d0">it;</span>
+		<span style="color: #d0d0d0">it</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">cities.find(cityname);</span>  <span style="color: #999999; font-style: italic">//O(1), way faster than iterature through everything</span>
+
+		<span style="color: #999999; font-style: italic">//not found</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(it</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cities.end())</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>
+
+		<span style="color: #999999; font-style: italic">//iterature through the links to print</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">(*it).second.links.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">Link*</span> <span style="color: #d0d0d0">lptr</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">(*it).second.links[i];</span>
+
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(lptr-&gt;n1-&gt;city</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">cityname)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">lptr-&gt;n2-&gt;city</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+			<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">lptr-&gt;n1-&gt;city</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+			
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+</section>
+
+
+
+	</div>
+
+
+</body>
+</html>
