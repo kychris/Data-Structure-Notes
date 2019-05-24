@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<LINK REL=StyleSheet HREF="../style.css" TYPE="text/css" >
+</head>
+<body align="center">
+	
+	<a href="../index.html"><h1>CS61: DATA STRUCTURE Notes</h1></a>
+	<div id = "content" >
+		<h1>Week 8 Wednesday Graph Functions</h1>
+		
+		
+
+		<img src="pics/8,3.jpg" alt="Class Note" width = 100%>
+
+
+
+<h2>Find Connected Components</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">FindConnectedComponents</span><span style="color: #d0d0d0">()</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//Graph function</span>
+		<span style="color: #6ab825; font-weight: bold">for</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">num;</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">nodes[i].mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">num;</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">vector&lt;</span><span style="color: #6ab825; font-weight: bold">int</span><span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">cc;</span>
+			<span style="color: #d0d0d0">nodes[i].FindConnectedComponents(cc);</span>
+			<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">cc)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot; &quot;</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">FindConnectedComponents</span><span style="color: #d0d0d0">(vector&lt;</span><span style="color: #6ab825; font-weight: bold">int</span><span style="color: #d0d0d0">&gt;&amp;</span> <span style="color: #d0d0d0">cc)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//Node Function</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span>		
+		<span style="color: #d0d0d0">mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+		
+		<span style="color: #d0d0d0">cc.push_back(id);</span>
+
+		<span style="color: #999999; font-style: italic">//solution 1</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">links.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">Link*</span> <span style="color: #d0d0d0">cur_lin</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">links[i];</span>
+			<span style="color: #d0d0d0">cur_lin-&gt;n1-&gt;FindConnectedComponents(cc);</span>
+			<span style="color: #d0d0d0">cur_lin-&gt;n2-&gt;FindConnectedComponents(cc);</span>
+		<span style="color: #d0d0d0">}</span>
+
+		<span style="color: #999999; font-style: italic">//solution 2</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Link*</span> <span style="color: #d0d0d0">k</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">links)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">k-&gt;n1;</span>
+			<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(n</span> <span style="color: #d0d0d0">==</span> <span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">n=k-&gt;n2;</span>
+			<span style="color: #d0d0d0">n-&gt;FindConnectedComponents(cc);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section> 	
+
+
+<h2>Print Node at Distance</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintNodesAtDist</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">n,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//Graph Function</span>
+		<span style="color: #6ab825; font-weight: bold">for</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">num;</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">nodes[i].mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">-</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//distance</span>
+		<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">nodes[n].PrintNodesAtDist(d);</span>
+
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintNodesAtDist</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">{</span> <span style="color: #999999; font-style: italic">//Node Function</span>
+		<span style="color: #d0d0d0">queue&lt;Node*&gt;</span> <span style="color: #d0d0d0">q;</span>
+		<span style="color: #d0d0d0">mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">q.push(</span><span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">);</span> <span style="color: #999999; font-style: italic">//push itself into queue</span>
+
+		<span style="color: #6ab825; font-weight: bold">while</span><span style="color: #d0d0d0">(!q.empty())</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">q.front();</span>
+			<span style="color: #d0d0d0">q.pop();</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(n-&gt;mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">d)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">n-&gt;id</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot; &quot;</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Link*</span> <span style="color: #d0d0d0">k</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">links)</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">neigh</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">k-&gt;n1;</span>
+					<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(neigh</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">neigh=k-&gt;n2;</span>
+
+					<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(neigh-&gt;mark</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+						<span style="color: #d0d0d0">neigh-&gt;mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">n-&gt;mark+</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+						<span style="color: #d0d0d0">q.push(neigh);</span>
+					<span style="color: #d0d0d0">}</span>
+				<span style="color: #d0d0d0">}</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+
+</section>	
+	
+	
+	</div>
+
+
+</body>
+</html>
