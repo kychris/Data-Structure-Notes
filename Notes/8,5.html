@@ -12,17 +12,104 @@
 		
 		
 
-		<img src="" alt="Class Note">
+		<img src="pics/8,5.jpg" alt="Class Note" width="100%">
 
 		
 
 
-<h2>
+<h2>Class Definitions</h2>
 <section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Node</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">vector&lt;</span><span style="color: #6ab825; font-weight: bold">int</span><span style="color: #d0d0d0">&gt;</span> <span style="color: #d0d0d0">next;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">id;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">mark;</span>
+<span style="color: #d0d0d0">};</span>
 
-
+<span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Graph</span> <span style="color: #d0d0d0">{</span>
+	<span style="color: #d0d0d0">vector&lt;Node&gt;</span> <span style="color: #d0d0d0">nodes;</span>
+	<span style="color: #d0d0d0">Graph(){};</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">Initialize</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">nnodes);</span> <span style="color: #999999; font-style: italic">//initialize the graph</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddLink</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">from,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">to);</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintSource</span><span style="color: #d0d0d0">();</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintSink</span><span style="color: #d0d0d0">();</span>
+	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasCycleFrom</span><span style="color: #d0d0d0">(Node&amp;</span> <span style="color: #d0d0d0">n);</span> <span style="color: #999999; font-style: italic">//helper of HasCycle</span>
+	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasCycle</span><span style="color: #d0d0d0">();</span>
+<span style="color: #d0d0d0">};</span>
+</pre></div>
 </section> 	
 
+
+<h2>Initializations and AddLink</h2>
+<section>
+	<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">Initialize</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">nnodes)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">nodes.resize(nnodes);</span>
+		<span style="color: #6ab825; font-weight: bold">for</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">nnodes;</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">nodes[i].id</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">i;</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">AddLink</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">from,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">to)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">nodes[from].next.push_back(to);</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section>
+
+<h2>Printing</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">PrintSource</span><span style="color: #d0d0d0">()</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//PrintSink on exam</span>
+		<span style="color: #999999; font-style: italic">//initialize the marks</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Node&amp;</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">nodes)</span> <span style="color: #d0d0d0">n.mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span>
+
+		<span style="color: #999999; font-style: italic">//change mark if not a source</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Node&amp;</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">nodes)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">n.next)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">nodes[i].mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+
+		<span style="color: #999999; font-style: italic">//print the source</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">const</span> <span style="color: #d0d0d0">Node&amp;</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">nodes)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(n.mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">0</span> <span style="color: #d0d0d0">&amp;&amp;</span> <span style="color: #d0d0d0">n.next.size()</span> <span style="color: #d0d0d0">&gt;</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">n.id</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot; &quot;</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section>
+
+<h2>Has Cycle</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasCycleFrom</span><span style="color: #d0d0d0">(Node&amp;</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(n.mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(n.mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">2</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">n.mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//grey</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">n.next)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(HasCycleFrom(nodes[i]))</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">n.mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">2</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//black</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasCycle</span><span style="color: #d0d0d0">()</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">nodes.size();</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">nodes[i].mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Node&amp;</span> <span style="color: #d0d0d0">n:</span> <span style="color: #d0d0d0">nodes)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(HasCycleFrom(n))</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>
+		<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+		
+</section>
 
 	</div>
 
