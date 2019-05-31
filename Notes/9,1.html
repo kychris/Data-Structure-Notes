@@ -12,7 +12,7 @@
 		
 		
 
-		<img src="" alt="Class Note">
+		<img src="pics/9,3.jpg" alt="Class Note" width="100%">
 		
 
 <h2>Class Definitions</h2>
@@ -98,11 +98,80 @@
 	<span style="color: #d0d0d0">}</span>
 <span style="color: #d0d0d0">};</span>
 </pre></div>
-<section>
+</section>
 
-<h2></h2>
+<br>
+<hr>
+
+<h2>DFS node definition</h2>
 <section>
-	
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Node</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">vector&lt;Node*&gt;</span> <span style="color: #d0d0d0">next;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">id;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">mark;</span>
+
+	<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">dfs_parent;</span>
+	<span style="color: #d0d0d0">vector&lt;Node*&gt;</span> <span style="color: #d0d0d0">dfs_children;</span>
+
+	<span style="color: #d0d0d0">Node(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">id(n),</span> <span style="color: #d0d0d0">dfs_parent(nullptr)</span> <span style="color: #d0d0d0">{}</span>
+	<span style="color: #d0d0d0">Node()</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">dfs_parent(nullptr)</span> <span style="color: #d0d0d0">{}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">MakeDFSTree();</span>
+	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasDFSAncestor</span><span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">n);</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+</section>
+
+<h2>Make DFS Tree</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #447fcf">MakeDFSTree</span><span style="color: #d0d0d0">()</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//assume mark is set to 0</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">next)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(n-&gt;mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+				
+				<span style="color: #999999; font-style: italic">//set visited</span>
+				<span style="color: #d0d0d0">n-&gt;mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span> 
+
+				<span style="color: #999999; font-style: italic">//set parent to current this</span>
+				<span style="color: #d0d0d0">n-&gt;dfs_parent</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">;</span>
+
+				<span style="color: #999999; font-style: italic">//add children to this</span>
+				<span style="color: #d0d0d0">dfs_children.push_back(n);</span>
+
+				<span style="color: #999999; font-style: italic">//keep doing on children</span>
+				<span style="color: #d0d0d0">n-&gt;MakeDFSTree();</span>
+
+			<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #999999; font-style: italic">//determine back, cross, or forward</span>
+				<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(n-&gt;HasDFSAncestor(</span><span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">))</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;forward&quot;</span><span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">-&gt;HasDFSAncestor(n))</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;back&quot;</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;cross&quot;</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>	
+	<span style="color: #d0d0d0">}</span>
+</pre></div>
+
+</section>
+
+<h2>Has DFS Ancestor</h2>
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%">	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #447fcf">HasDFSAncestor</span><span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//true: if n is an ancestor of this</span>
+		<span style="color: #999999; font-style: italic">//nope, amcetor doesn&#39;t have to be root</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dfs_parent</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dfs_parent</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">dfs_parent-&gt;HasDFSAncestor(n);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+</pre></div>	
 </section>
 
 
