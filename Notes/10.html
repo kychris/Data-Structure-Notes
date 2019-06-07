@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<LINK REL=StyleSheet HREF="../style.css" TYPE="text/css" >
+</head>
+<body align="center">
+	
+	<a href="../index.html"><h1>CS61: DATA STRUCTURE Notes</h1></a>
+	<div id = "content" >
+		<h1>Week 10: DFS tree</h1>
+		
+		
+
+		<img src="" alt="Class Note">
+
+		<p>content, conten t</p>
+
+
+<section>
+<div class="highlight" style="background: #202020"><pre style="line-height: 125%"><span style="color: #cd2828; font-weight: bold">#include &lt;stack&gt;</span>
+<span style="color: #cd2828; font-weight: bold">#include &lt;queue&gt;</span>
+<span style="color: #cd2828; font-weight: bold">#include &lt;iostream&gt;</span>
+
+<span style="color: #6ab825; font-weight: bold">using</span> <span style="color: #6ab825; font-weight: bold">namespace</span> <span style="color: #d0d0d0">std;</span>
+
+
+
+<span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Node</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">vector&lt;Node*&gt;</span> <span style="color: #d0d0d0">next;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">id;</span>
+	<span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">mark;</span>
+
+	<span style="color: #d0d0d0">Node*</span> <span style="color: #d0d0d0">dfs_parent;</span>
+	<span style="color: #d0d0d0">vector&lt;Node*&gt;</span> <span style="color: #d0d0d0">dfs_children;</span>
+
+	<span style="color: #d0d0d0">Node(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">id(n),</span> <span style="color: #d0d0d0">dfs_parent(nullptr)</span> <span style="color: #d0d0d0">{}</span>
+	<span style="color: #d0d0d0">Node()</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">dfs_parent(nullptr)</span> <span style="color: #d0d0d0">{}</span>
+
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">MakeDFSTree()</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//assume mark is set to 0</span>
+		<span style="color: #6ab825; font-weight: bold">for</span> <span style="color: #d0d0d0">(Node*</span> <span style="color: #d0d0d0">n</span> <span style="color: #d0d0d0">:</span> <span style="color: #d0d0d0">next)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(n-&gt;mark</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+
+				<span style="color: #999999; font-style: italic">//set visited</span>
+				<span style="color: #d0d0d0">n-&gt;mark</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">;</span> 
+
+				<span style="color: #999999; font-style: italic">//set parent to current this</span>
+				<span style="color: #d0d0d0">n-&gt;dfs_parent</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">;</span>
+
+				<span style="color: #999999; font-style: italic">//add children to this</span>
+				<span style="color: #d0d0d0">dfs_children.push_back(n);</span>
+
+				<span style="color: #999999; font-style: italic">//keep doing on children</span>
+				<span style="color: #d0d0d0">n-&gt;MakeDFSTree();</span>
+
+			<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+				<span style="color: #999999; font-style: italic">//determine back, cross, or forward</span>
+				<span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(n-&gt;HasDFSAncestor(</span><span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">))</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;forward&quot;</span><span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">this</span><span style="color: #d0d0d0">-&gt;HasDFSAncestor(n))</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;back&quot;</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+					<span style="color: #d0d0d0">cout</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #ed9d13">&quot;cross&quot;</span> <span style="color: #d0d0d0">&lt;&lt;</span> <span style="color: #d0d0d0">endl;</span>
+				<span style="color: #d0d0d0">}</span>
+			<span style="color: #d0d0d0">}</span>
+		<span style="color: #d0d0d0">}</span>	
+	<span style="color: #d0d0d0">}</span>
+
+	<span style="color: #6ab825; font-weight: bold">bool</span> <span style="color: #d0d0d0">HasDFSAncestor(Node*</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #999999; font-style: italic">//true: if n is an ancestor of this</span>
+		<span style="color: #999999; font-style: italic">//nope, amcetor doesn&#39;t have to be root</span>
+		<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dfs_parent</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">nullptr)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">false</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dfs_parent</span> <span style="color: #d0d0d0">==</span> <span style="color: #d0d0d0">n)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #24909d">true</span><span style="color: #d0d0d0">;</span>
+		<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #6ab825; font-weight: bold">return</span> <span style="color: #d0d0d0">dfs_parent-&gt;HasDFSAncestor(n);</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">};</span>
+
+<span style="color: #6ab825; font-weight: bold">class</span> <span style="color: #447fcf; text-decoration: underline">Graph</span> <span style="color: #d0d0d0">{</span>
+<span style="color: #d0d0d0">public:</span>
+	<span style="color: #d0d0d0">vector&lt;Node&gt;</span> <span style="color: #d0d0d0">nodes;</span>
+	<span style="color: #d0d0d0">Graph()</span> <span style="color: #d0d0d0">{</span>
+
+	<span style="color: #d0d0d0">}</span>
+	<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">Initialize</span> <span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">nnodes)</span> <span style="color: #d0d0d0">{</span>
+		<span style="color: #d0d0d0">nodes.resize(nnodes);</span>
+		<span style="color: #6ab825; font-weight: bold">for</span><span style="color: #d0d0d0">(</span><span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">0</span><span style="color: #d0d0d0">;</span> <span style="color: #d0d0d0">i</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">nnodes;</span> <span style="color: #d0d0d0">i++)</span> <span style="color: #d0d0d0">{</span>
+			<span style="color: #d0d0d0">nodes[i].id</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">i;</span>
+		<span style="color: #d0d0d0">}</span>
+	<span style="color: #d0d0d0">}</span>
+
+
+<span style="color: #d0d0d0">};</span>
+</pre></div>
+
+
+</section> 	
+
+
+	</div>
+
+
+</body>
+</html>
